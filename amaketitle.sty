@@ -1,0 +1,185 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% タイトルの定義
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand*{\etitle}[1]{\gdef\@etitle{#1}}	% 英文表題
+\newcommand*{\eauthor}[1]{\gdef\@eauthor{#1}}	% 英文著者名
+\newcommand*{\keywords}[1]{\gdef\@keywords{#1}}	% キーワード
+\newlength{\abstractwidth}			% 概要の横幅
+\newcommand*{\receivedon}[1]{\gdef\@receivedon{#1}}
+
+%% 概要を登録するための命令を定義
+\renewenvironment{abstract}
+  %% 概要環境の開始
+  {
+    \global\setbox\@abstractbox\hbox\bgroup % 次の\egroupまでをboxに登録
+    \begin{minipage}[b]{\abstractwidth} % ミニページの幅を設定
+    \nlines{\large\centering \textbf{Abstract}\par} % 概要の表題
+  }
+  %% 概要環境の終了
+  {
+    \end{minipage}\egroup
+  }
+
+%
+% \maketitleを再定義
+%
+\newcommand{\amaketitle}[1][0pt]{\par
+  \begingroup
+    %% thanksのためのfootnoteの書式
+    \renewcommand\thefootnote{\arabic{footnote})} % 番号の書式 ex: 1)
+    %% 著者名で所属を参照する記号の書式
+    \def\@makefnmark{%
+      \rlap{%!!				% 右側の文字に重ね書き
+        \@textsuperscript{\normalfont\@thefnmark}
+      }%!!
+      \hskip 1zw			% 右側に空白文字
+    }
+    %% タイトルを出力
+    \twocolumn[
+      \@amaketitle			% タイトルを出力
+      \vskip #1				% ※twocolumn後の空白を調整
+    ]
+    %% 脚注の出力
+    \@makereceivedon			% 受領日を脚注に出力
+    \@thanks				% 所属をfootnoteに出力
+    %% footnote番号の設定
+    \setcounter{footnote}{0}		% footnote番号を再初期化します
+    %% ページ番号の制御
+    \plainifnotempty			% ページ番号の出力を設定
+  \endgroup
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@etitle\@empty		% 英文表題の変数を空にする
+  \global\let\@eauthor\@empty		% 英文著者名の変数を空にする
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\etitle\relax		% 英文表題の命令を削除する
+  \global\let\eauthor\relax		% 英文著者名の命令を削除する
+  \global\let\and\relax}
+
+% 標題全体を出力します
+\def\@amaketitle{%
+  %\let\footnote\thanks			% TODO: いらない？
+  %\vskip 0.5\baselineskip		% 0.5行あき
+  %% 和文標題
+  \ifx\@title\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \LARGE \@title}
+  \fi
+  %% 和文著者名
+  \ifx\@author\@undefined\else
+    \vskip 1\baselineskip		% 1行あき
+    \nlines{\centering \large \@author}
+  \fi
+  %% 英文標題
+  \ifx\@etitle\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \Large \@etitle}
+  \fi
+  %% 英文著者名
+  \ifx\@eauthor\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \@eauthor}
+  \fi
+  %% 概要
+  \ifx\@abstractbox\@undefined\else
+    \vskip\baselineskip		% 1行あき
+    \nlines{\centering \box\@abstractbox}	% 概要の内容
+  \fi
+  %% キーワード
+  \ifx\@keywords\@undefined\else
+    \nlines{%!!
+      \centering
+	\parbox
+        {\abstractwidth}
+        {\textbf{Keywords:} \@keywords}
+    }
+  \fi
+  \vskip 1.5\baselineskip		% 行あき
+}
+
+%% \thanksのマークだけを出力するコマンド
+\newcommand{\thanksmark}[1][1]{%!!
+  \footnotemark[#1]
+}
+
+% 受付日を出力するための命令定義
+\newcommand*{\@makereceivedon}{
+  %% 所属
+  \ifx\@receivedon\@undefined\else
+    \begingroup
+      \renewcommand\thefootnote{} % 番号の書式を付けない
+      \footnotetext{\textbf{Received on \@receivedon.}}
+    \endgroup
+  \fi
+}
+
+% n行取りを実現するマクロ nlines
+%
+% 行取りのコードはこちらを参考にさせて頂きました．
+% http://www.dab.hi-ho.ne.jp/t-wata/tex/multicol.html
+
+% \Chtと\Cdpを定義する
+\ifx \Cht \undefined                % もし\Chtが未定義なら
+ \newdimen\Cht\newdimen\Cdp         % \Chtと\Chpを作成
+ \setbox0\hbox{\char\jis"2121}    %"% JIS全角スペースをboxに設定
+ \Cht=\ht0\Cdp=\dp0                 % \Chtに高さと\Cdpに深さを設定する
+\fi
+
+% \nlinesを定義する
+\catcode`@=11                       % @のカテゴリーコード変更
+\long \def\nlines #1{
+  \par \noindent
+  \setbox0 \vbox{\noindent #1}%!!!  % #1をboxに配置する
+  \dimen@ = \ht0                    % \dimen@ += box0の高さ
+  \advance \dimen@ \dp0             % \dimen@ -= box0の深さ
+  \newcount \lines                  % 必要な行数 dimen@/baselineskip
+  \loop                             % 必要な行数を計算する
+    \advance \dimen@ -\baselineskip
+    \advance \lines by 1
+    \ifnum \dimen@ > 0 \repeat      % demenの割り算をループで実行する
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ \lines          % \dimen@ *= #1
+  \advance \dimen@ -\baselineskip   % \dimen@ -= \baselineskip
+  \advance \dimen@ -\Cht            % \dimen@ -= \Cht (高さ)
+  \advance \dimen@ \Cdp             % \dimen@ += \Cdp (深さ)
+  \advance \dimen@ \ht0             % \dimen@ += box0の高さ
+  \advance \dimen@ -\dp0            % \dimen@ -= box0の深さ
+  \vtop to \z@{                     % \z@は0ptのdimen
+    \hbox{%!!!                      %  ここの「%」必須！
+      \vrule width \z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+      \raise -.5\dimen@             % 0.5 * dimen@だけ下げる
+      \hbox{\box0}%!!!              % 文字を配置する
+    }
+    \vss                            % 垂直に伸びる空白（Overfulを防ぐ）
+  }
+  \dimen@ = \baselineskip           % \dimen@ = \baselineskip
+  \multiply \dimen@ \lines          % \dimen@ *= #1
+  \advance \dimen@ -2\baselineskip  % \dimen@ -= 2 * \baselineskip
+  \par \nobreak                     %
+  \vskip \dimen@                    % 垂直に\dimen@だけ開ける
+  \hbox{
+    \vrule width\z@ height\Cht depth\z@
+                                    % 高さ\Chtの縦線
+  }
+  \vskip \z@                        %
+}
+\catcode`@=12
+
+% \linespaceを定義する
+\catcode`@=11
+\long\def\linespace#1#2{\par\noindent
+  \dimen@=\baselineskip\multiply\dimen@ #1\advance\dimen@-\baselineskip
+  \advance\dimen@-\Cht\advance\dimen@\Cdp
+  \setbox0\vbox{\noindent #2}\advance\dimen@\ht0\advance\dimen@-\dp0%
+  \vtop to\z@{\hbox{\vrule width\z@ height\Cht depth\z@
+   \raise-.5\dimen@\hbox{\box0}}\vss}%
+  \dimen@=\baselineskip\multiply\dimen@ #1\advance\dimen@-2\baselineskip
+  \par\nobreak\vskip\dimen@\hbox{\vrule width\z@ height\Cht depth\z@}\vskip\z@}
+\catcode`@=12
+
+

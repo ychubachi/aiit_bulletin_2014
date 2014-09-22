@@ -1,0 +1,229 @@
+%#BIBTEX pbibtex aiit_bulletin
+%% 産業技術大学院大学紀要フォーマット
+%% Created: 2013-06-30 Y.Chubachi
+\documentclass[a4j, 12Q, twocolumn, twoside]{jsarticle}
+\usepackage{aiit_bulletin}		% 紀要のスタイル
+
+%%
+%% 1.必要に応じてパッケージやマクロをここに追加
+%%
+\usepackage{newcent}			% Centuryフォント
+\usepackage[dvipdfmx]{graphicx}		% 図の取り込み(PDF対応)用
+\usepackage{okumacro}			% ルビ・圏点など
+\usepackage{url}			% URLの出力
+
+%%
+%% 2.英語論文の場合は下記2行のコメントを外してください
+%%
+
+% \renewcommand{\tablename}{Table~}
+% \renewcommand{\figurename}{Fig.~}
+
+%%
+%% 3.タイトルを設定してください
+%%
+%% 本文が英文の場合は，\etitle, \eauthorを削除し，\titleと\autherに
+%% 英文を記入してください．
+%%
+
+%%
+%% 和文表題
+%% 
+\title{産業技術大学院大学紀要の書式について\\-- 2013年度（\LaTeX）版 --}
+
+%%
+%% 和文著者名
+%%
+%% \thanksの中で改行する場合\\ではなく\newlineを使用する
+%%
+\author{
+  産技 太郎
+  \thanks{産業技術大学院大学 \newline
+  Advanced Institute of Industrial Technology}
+  産技 花子
+  \thanks{公立大学法人首都大学東京 \newline
+  Tokyo Metropolitan University}
+}
+
+%%
+%% 英文表題
+%%
+\etitle{Style and Layout of an AIIT Bulletin\\-- 2013 (\LaTeX) --}
+
+%%
+%% 英文著者名
+%%
+\eauthor{
+  Taro Sangi
+  \thanksmark[1]
+  Hanako Sangi
+  \thanksmark[2]
+}
+
+%%
+%% 英文アブストラクト
+%%
+\begin{abstract}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet
+hendrerit dui at. Nunc blandit egestas felis non aliquet. Proin
+malesuada dictum lacus eget elit accumsan, eu convallis urna
+malesuada. Donec quis neque erat tempus congue ac eget est. Donec nec
+dolor auctor, laoreet nisi id, tincidunt metus. Nunc eu scelerisque
+nisi. Mauris vitae laoreet malesuada risus. Quisque at pharetra quam.
+hendrerit augue sollicitudin vitae. Proin eget malesuada dictum
+erat. In ullamcorper leo in volutpat bibendum hendrerit.(approx. 80
+Words)
+\end{abstract}
+
+%%
+%% 英文キーワード
+%%
+\keywords{AIIT, bulletin, 2013 (approx. 5 Keywords)}
+
+%%
+%% 受領日
+%%
+\receivedon{2013-09-30}
+
+\begin{document}
+%%
+%% 4.タイトルを出力
+%%
+%% \maketiteleにあるオプション[0pt]はタイトルと本文の間隔
+%% を調整するものです．
+%% 1ページ目の脚注の下端と本文の下端が左右の段で揃わない
+%% とき，この値を0pt〜8ptくらいの範囲で調整してください．
+\amaketitle[-1pt]
+
+%%
+%% 5.本文
+%%
+\section{はじめに}
+本稿では産業技術大学院大学紀要の書式について記す．
+
+\section{原稿}
+\subsection{カメラレディ原稿}
+原稿は，日本語もしくは英語による完全版下(camera ready)原稿とする．
+製版後の校正は原則として不可能であるため，誤字や脱字がないよう，特に念
+を入れて仕上げる．刷り上がりは，6頁以上が望ましい．
+
+\subsection{余白}
+天地左右余白(マージン)・段間余白(コラムスペース)はこの見本に従う．
+上下の余白には製本時にヘッダとページ番号を挿入するので，空白にしておく
+こと．
+
+\section{標題について}
+\subsection{標題}
+標題は和文ならびに英文とする．英文原稿の場合は，和文表題を記述する箇所
+に英文標題を記述し，英文標題の箇所は削除すること．
+
+\subsection{アブストラクト・キーワード}
+和文ではなく英文で記述すること．アブストラクトは80語程度とし，キーワー
+ドは5つ程度とする．
+
+\subsection{標題等の割付}
+見本に従って，[和文標題，和文著者名，英文標題，英文著者名，英文アブスト
+ラクト，英文キーワード]及び[受領日，所属]の割付を行う．
+
+\subsection{英文原稿の場合}
+英文による原稿の場合は，和文著者名のところに英文で記述し，英文著者名の
+ところは削除すること．所属も英文で記述すること．
+
+\section{本文について}
+
+\subsection{句読点}
+和文の句読点には全角ピリオド(．)，全角コンマ(，)を用いること．
+
+\subsection{見出し}
+原稿には，大見出し，中見出しなどを設け，それらを明瞭に区分する．さらに
+細分を要するときは著者に委ねる．
+
+\section{参考文献について}
+参考文献は，通し番号とし，本文中では，当該事項または人名などの参考とす
+る後に，\cite{okumura}，あるいは，\cite{takeuchi1986new,sutherland2011scrum} のよ
+うに記す．文章の末尾に記す必要がある場合には，句読
+点の前に記す\cite{IT人材白書2012}．
+
+参考文献は，原則として，雑誌の場合は，著者，標題，雑誌名，巻，号，頁，
+年の順に記す．また，書籍の場合は，著者，書名，発行所，発行年の順に記す．
+参考文献例を本文の最後に挙げるので参考されたい．
+
+\section{脚注等について}
+\subsection{脚注}
+脚注は段組の下部に記載する\footnote{脚注の例}．
+
+\subsection{ルビ・圏点}
+\ruby{難読漢字}{なんどくかんじ}にはルビを振ることができる．また，強調
+したい箇所には\kenten{圏点をつける}ことができる．
+
+\section{図・表について}
+\subsection{図表のキャプション}
+図・表には，図1，図2，表1，表2 のように論文全体で通し番号をつけること．
+英文の場合には，Fig. 1，Fig. 2，Table 1，Table 2のように，番号をつける
+こと．通し番号，標題は本文と同じ書体を使用すること．
+
+表のキャプションは表の上に，図のキャプションは図の下につけること．
+
+\begin{figure}
+ \centering	% \begin{center} は使わない．余計な余白が入る．
+ % 図を9行取り（9\baselineskip）して挿入する例
+ \includegraphics[height=9\baselineskip]{aiit_symbol.eps}
+ \caption{図のキャプション}
+ \label{fig:one}
+\end{figure}
+
+\subsection{図表に関する注意}
+図・表は，印刷に十分耐えうるものでなければならない．刷り上がり時の文字
+が小さすぎないよう十二分に配慮し，線の太さにも注意する．
+
+図・表に色刷りを必要とする場合は，別途連絡すること．ただし，製本上の都
+合で色刷り頁を設けることができない場合もありうる．
+
+\begin{table}
+ \centering
+ \caption{表のキャプション}
+ \begin{tabular}{c|ccc} \hline \hline
+   & A & B & C \\ \hline
+   R1 & $A_{1}$ & $B_{1}$ & $C_{1}$ \\
+   R2 & $A_{2}$ & $B_{2}$ & $C_{2}$ \\
+   R3 & $A_{3}$ & $B_{3}$ & $C_{3}$ \\
+   R4 & $A_{4}$ & $B_{4}$ & $C_{4}$ \\ \hline
+ \end{tabular}
+ \vskip 10pt % 左右の段の行が揃うように調整
+\end{table}
+
+\section{テンプレート}
+\LaTeX を利用する執筆者は，\texttt{aiit\_bulletin.tex}を書き換えて使う
+こと．また，MS Wordを利用する場合は，\texttt{aiit\_bulletin.docx}ファイ
+ルを用いること．
+
+\section{おわりに}
+本稿では産業技術大学院大学紀要のフォーマットについて記した．
+
+\bibliographystyle{junsrt}
+\bibliography{bibliography}
+
+\appendix
+\section{注意事項}
+\subsection{フォントの準備}
+LaTeXとWordで同じ字体に揃えるため，和文には「IPAexフォント（2書体パッ
+ク）」を用いる．次のサイトからインストールすることができる．
+
+\url{http://ipafont.ipa.go.jp/ipaexfont/download.html}
+
+なお，TeX Live 2012 以降およびW32TeX [2013/06/06] 以降の
+luatexja.tar.xzに は同梱されている．
+
+\subsection{版面と余白}
+何らかの事情で書式を自分で設定する場合，本文の書式は次の通りとする．
+
+\begin{itemize}
+ \item フォントの大きさは8.5pt(=12Q) とする．
+ \item 2段組とし1行27文字で，段間は2文字分あける．
+ \item 行間は字の高さの75\%とし，1頁47行とする．
+ \item 余白は天（上部）30mm，ノド（内側）25mmとする．
+\end{itemize}
+
+これら以外の書式は可能な限りこの見本に合わせる．
+
+\end{document}
